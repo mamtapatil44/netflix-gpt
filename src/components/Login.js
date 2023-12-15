@@ -44,7 +44,6 @@ const Login = () => {
           }).then(() => {
             const {uid,email,displayName} = auth?.currentUser;
             dispatch(addUser({uid :uid,email:email,displayName:displayName} ))
-            navigate('/browse');
           }).catch((error) => {
             // An error occurred
             // ...
@@ -54,7 +53,7 @@ const Login = () => {
         .catch((error) => {
           const errorCode = error.code;
           const errorMessage = error.message;
-          setErrorMessage(errorCode + "--" + error.message);
+          setErrorMessage(errorCode + "--" + errorMessage);
           // ..
         });
     } else {
@@ -68,13 +67,12 @@ const Login = () => {
         .then((userCredential) => {
           // Signed in
           const user = userCredential.user;
-          navigate('/browse');
           
         })
         .catch((error) => {
           const errorCode = error.code;
           const errorMessage = error.message;
-          setErrorMessage(errorCode + "--" + error.message);
+          setErrorMessage(errorCode + "--" + errorMessage);
         });
     }
   };
