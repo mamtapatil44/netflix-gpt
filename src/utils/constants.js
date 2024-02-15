@@ -18,7 +18,7 @@ export const UPCOMING_MOVIE_URL = 'https://api.themoviedb.org/3/movie/upcoming?p
 export const TOPRATED_MOVIE_URL ='https://api.themoviedb.org/3/movie/top_rated?page=1';
 export const POPULAR_MOVIE_URL = 'https://api.themoviedb.org/3/movie/popular?page=1';
 export const BG_URL ="https://assets.nflxext.com/ffe/siteui/vlv3/b4c7f092-0488-48b7-854d-ca055a84fb4f/5b22968d-b94f-44ec-bea3-45dcf457f29e/IN-en-20231204-popsignuptwoweeks-perspective_alpha_website_large.jpg";
-export const OPENAI_GPT_API_KEY ="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";
+export const OPENAI_GPT_API_KEY ="";
 export const TMDB_SEARCH_QUERY = "https://api.themoviedb.org/3/search/movie?query=";
 export const SEARCH_HALF_QUEARY = "&include_adult=false&language=en-US&page=1";
 
