@@ -27,6 +27,7 @@ const Login = () => {
   };
 
   const handleButtonClick = () => {
+    console.log("password.current.value ",password.current.value)
     const message = checkValidData(email.current.value, password.current.value);
     setErrorMessage(message);
     if (message) return;
@@ -70,6 +71,16 @@ const Login = () => {
           // Signed in
           const user = userCredential.user;
           console.log("sign in ====" , user)
+          updateProfile(auth.currentUser, {
+            displayName: firstName.current.value, photoURL: "https://example.com/jane-q-user/profile.jpg"
+          }).then(() => {
+            const {uid,email,displayName} = auth?.currentUser;
+            dispatch(addUser({uid :uid,email:email,displayName:displayName} ));
+            console.log("signup "  ,auth?.currentUser)
+          }).catch((error) => {
+            // An error occurred
+            // ...
+          });
           
         })
         .catch((error) => {

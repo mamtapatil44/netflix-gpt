@@ -11,14 +11,13 @@ const Header = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const user = useSelector((store) => store?.user);
-  console.log("user=== " ,user)
+
   const showGptSearch = useSelector((store) => store?.gpt?.showGptSearch);
 
   const handleSignOut = () => {
     signOut(auth)
       .then(() => {
         dispatch(removeUser);
-        // navigate("/");
       })
       .catch((error) => {
         // An error happened.
@@ -28,13 +27,12 @@ const Header = () => {
   useEffect(() => {
     const unsubscribe = onAuthStateChanged(auth, (user) => {
       if (user) {
-        const { uid, email, displayName,  } = user;
+        const { uid, email, displayName } = user;
         dispatch(
           addUser({
             uid: uid,
             email: email,
             displayName: displayName,
-            
           })
         );
         navigate("/browse");
@@ -42,38 +40,47 @@ const Header = () => {
         dispatch(removeUser());
         navigate("/");
       }
-    })},[])
+    });
+  }, []);
 
   const handleGptSearch = () => {
     dispatch(toggelGptSearchView());
   };
 
   return (
-    <div className="absolute w-screen px-8 py-2 bg-gradient-to-b from-black z-10 flex justify-between">
-      <div>
-        <img className="w-16 md:w-44 " alt="logo" src={LOGO} />
-      </div>
-
-      {user && (
-        <div className="flex text-white">
-          <button
-            className="rounded-lg text-white bg-purple-600"
-            onClick={handleGptSearch}>
-            {showGptSearch ? "Home" : "Gpt Seach"}
-          </button>
-          <div
-            className="rounded-full text-sm h-12 w-12 bg-red-700 capitalize text-center font-bold 
-        m-3 p-2">
-            {user?.displayName[0]} &nbsp;{user?.displayName[1]}
-          </div>
-          <button
-            className="rounded-lg bg-red-700"
-            onClick={handleSignOut}
-          >
-            Sign Out
-          </button>
+    <div className="absolute z-10 w-full bg-gradient-to-b from-black">
+      <div className="flex flex-row justify-between p-2 px-2 md:px-10 ">
+        <div className="flex flex-row items-center cursor-pointer">
+          <img className="w-16 md:w-44 " alt="logo" src={LOGO} />
         </div>
-      )}
+
+        {user && (
+          <nav className="flex flex-row items-center font-md text-md gap-6">
+            <div className=" ">
+              <button
+                className="px-2 py-1 border bg-purple-600 rounded-lg text-white "
+                onClick={handleGptSearch}
+              >
+                {showGptSearch ? "Home" : "Gpt Seach"}
+              </button>
+            </div>
+            <div
+              className="rounded-full text-sm h-10 w-10 bg-red-700 capitalize  font-bold flex items-center justify-center text-center
+       "
+            >
+              UN
+            </div>
+            <div className=" ">
+              <button
+                className="px-2 py-1 border bg-red-700 rounded-lg text-white"
+                onClick={handleSignOut}
+              >
+                Sign Out
+              </button>
+            </div>
+          </nav>
+        )}
+      </div>
     </div>
   );
 };
