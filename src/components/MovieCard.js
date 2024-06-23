@@ -1,7 +1,7 @@
 import React from "react";
 import { IMG_CDN_URL } from "../utils/constants";
 
-const MovieCard = ({ posterpath }) => {
+const MovieCard = ({ posterpath,movie }) => {
     if(!posterpath) return null
   return (
     <div className="m-2 p-2">

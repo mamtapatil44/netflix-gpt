@@ -65,7 +65,7 @@ const Header = () => {
               </button>
             </div>
             <div
-              className="rounded-full text-sm h-10 w-10 bg-red-700 capitalize  font-bold flex items-center justify-center text-center
+              className="rounded-full text-sm h-10 w-10 bg-red-700 capitalize font-bold flex items-center justify-center text-center text-white
        "
             >
               UN
