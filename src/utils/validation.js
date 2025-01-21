@@ -4,7 +4,7 @@ export const checkValidData =(email,password) =>{
    let errorMessage;
     if (!isEmailValid) return errorMessage = "Email is invalid"
         
-    if (!isPasswordValid) return errorMessage = "Password is invalid"
+    if (!isPasswordValid) return errorMessage = "Password must be at least 8 characters long"
         
     
  return null;
