@@ -15,7 +15,6 @@ import { BG_URL } from "../utils/constants";
 const Login = () => {
   const [isSignInForm, setIsSignInForm] = useState(true);
   const [errorMessage, setErrorMessage] = useState(null);
-  const navigate = useNavigate();
   const dispatch = useDispatch();
 
   const email = useRef(null);
@@ -27,61 +26,45 @@ const Login = () => {
   };
 
   const handleButtonClick = () => {
-    console.log("password.current.value ",password.current.value)
+    console.log("password.current.value ", password.current.value);
     const message = checkValidData(email.current.value, password.current.value);
     setErrorMessage(message);
     if (message) return;
     if (!isSignInForm) {
-      // signup form
-
-      createUserWithEmailAndPassword(
-        auth,
-        email.current.value,
-        password.current.value
-      )
+      createUserWithEmailAndPassword(auth, email.current.value, password.current.value)
         .then((userCredential) => {
-          // Signed up'
           updateProfile(auth.currentUser, {
-            displayName: firstName.current.value, photoURL: "https://example.com/jane-q-user/profile.jpg"
+            displayName: firstName.current.value,
+            photoURL: "https://example.com/jane-q-user/profile.jpg"
           }).then(() => {
-            const {uid,email,displayName} = auth?.currentUser;
-            dispatch(addUser({uid :uid,email:email,displayName:displayName} ));
-            console.log("signup "  ,auth?.currentUser)
+            const { uid, email, displayName } = auth?.currentUser;
+            dispatch(addUser({ uid: uid, email: email, displayName: displayName }));
+            console.log("signup ", auth?.currentUser);
           }).catch((error) => {
-            // An error occurred
-            // ...
+
           });
-         
         })
         .catch((error) => {
           const errorCode = error.code;
           const errorMessage = error.message;
           setErrorMessage(errorCode + "--" + errorMessage);
-          // ..
         });
     } else {
-      // signup in
-
-      signInWithEmailAndPassword(
-        auth,
-        email.current.value,
-        password.current.value
-      )
+      signInWithEmailAndPassword(auth, email.current.value, password.current.value)
         .then((userCredential) => {
-          // Signed in
+
           const user = userCredential.user;
-          console.log("sign in ====" , user)
+          console.log("sign in ====", user);
           updateProfile(auth.currentUser, {
-            displayName: firstName.current.value, photoURL: "https://example.com/jane-q-user/profile.jpg"
+            displayName: firstName.current.value,
+            photoURL: "https://example.com/jane-q-user/profile.jpg"
           }).then(() => {
-            const {uid,email,displayName} = auth?.currentUser;
-            dispatch(addUser({uid :uid,email:email,displayName:displayName} ));
-            console.log("signup "  ,auth?.currentUser)
+            const { uid, email, displayName } = auth?.currentUser;
+            dispatch(addUser({ uid: uid, email: email, displayName: displayName }));
+            console.log("signup ", auth?.currentUser);
           }).catch((error) => {
-            // An error occurred
-            // ...
+
           });
-          
         })
         .catch((error) => {
           const errorCode = error.code;
@@ -92,19 +75,18 @@ const Login = () => {
   };
 
   return (
-    <div>
+    <div className="min-h-screen bg-gray-900">
       <Header />
-      <div className="absolute">
-      <img
-      alt="logo"
-      src={BG_URL}
-    />
-      </div>
+      <div
+        className="absolute top-0 left-0 right-0 bottom-0 bg-cover "
+        style={{ backgroundImage: `url(${BG_URL})` }}
+      />
+      
       <form
         onSubmit={(e) => e.preventDefault()}
-        className="absolute w-3/12 p-12 bg-black mx-auto left-0 right-0 my-36 rounded-lg text-white bg-opacity-80"
+        className="relative w-full sm:w-96 md:w-1/3 p-6 bg-black bg-opacity-80 rounded-lg text-white mx-auto mt-32"
       >
-        <h1 className="font-bold text-3xl py-4">
+        <h1 className="font-bold text-3xl py-4 text-center">
           {isSignInForm ? "Sign In" : "Sign Up"}
         </h1>
         {!isSignInForm && (
@@ -112,36 +94,38 @@ const Login = () => {
             ref={firstName}
             type="text"
             placeholder="First Name"
-            className="p-2 m-2 w-full bg-gray-700"
+            className="p-2 m-2 w-full bg-gray-700 rounded-md"
           />
         )}
         <input
           ref={email}
-          type="text"
+          type="email"
           placeholder="Email Address"
-          className="p-2 m-2 w-full bg-gray-700"
+          className="p-2 m-2 w-full bg-gray-700 rounded-md"
         />
         <input
           ref={password}
           type="password"
           placeholder="Password"
-          className="p-2 m-2 w-full  bg-gray-700"
+          className="p-2 m-2 w-full bg-gray-700 rounded-md"
         />
-        <p className="p-2 m-2 text-red-700">{errorMessage}</p>
+        {errorMessage && <p className="text-red-500 text-sm">{errorMessage}</p>}
         <button
-          className="p-2 m-2 bg-red-700 rounded-sm w-full"
+          className="p-2 m-2 bg-red-700 rounded-sm w-full mt-4 hover:bg-red-600"
           onClick={handleButtonClick}
         >
           {isSignInForm ? "Sign In" : "Sign Up"}
         </button>
-        <p className="p-2 m-4 cursor-pointer" onClick={toggleSignInForm}>
+        <p className="p-2 m-4 text-center cursor-pointer text-blue-500" onClick={toggleSignInForm}>
           {isSignInForm
-            ? "New To Netflix? Sign Up Now"
-            : "Already registered? Sign In Now!!"}
+            ? "New to Netflix? Sign Up Now"
+            : "Already registered? Sign In Now!"}
         </p>
       </form>
     </div>
   );
 };
+
+
 
 export default Login;
