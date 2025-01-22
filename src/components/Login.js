@@ -78,10 +78,10 @@ const Login = () => {
     <div className="min-h-screen bg-gray-900">
       <Header />
       <div
-        className="absolute top-0 left-0 right-0 bottom-0 bg-cover "
+        className="absolute top-0 left-0 right-0 bottom-0 bg-cover"
         style={{ backgroundImage: `url(${BG_URL})` }}
       />
-      
+  
       <form
         onSubmit={(e) => e.preventDefault()}
         className="relative w-full sm:w-96 md:w-1/3 p-6 bg-black bg-opacity-80 rounded-lg text-white mx-auto mt-32"
@@ -89,6 +89,10 @@ const Login = () => {
         <h1 className="font-bold text-3xl py-4 text-center">
           {isSignInForm ? "Sign In" : "Sign Up"}
         </h1>
+        <p className="text-center text-sm text-white mb-4 p-description">
+          NetflixGPT is not an actual streaming platform; it's a clone created for learning the concepts.
+        </p>
+        
         {!isSignInForm && (
           <input
             ref={firstName}
@@ -97,26 +101,37 @@ const Login = () => {
             className="p-2 m-2 w-full bg-gray-700 rounded-md"
           />
         )}
+        
         <input
           ref={email}
           type="email"
           placeholder="Email Address"
           className="p-2 m-2 w-full bg-gray-700 rounded-md"
         />
+        
         <input
           ref={password}
           type="password"
           placeholder="Password"
           className="p-2 m-2 w-full bg-gray-700 rounded-md"
         />
-        {errorMessage && <p className="text-red-500 text-sm">{errorMessage}</p>}
+        
+        {errorMessage && (
+          <p className="text-red-500 text-sm text-center mt-2">{errorMessage}</p>
+        )}
+        
         <button
-          className="p-2 m-2 bg-red-700 rounded-sm w-full mt-4 hover:bg-red-600"
+          type="submit"
+          className="p-2 m-2 bg-red-700 rounded-sm w-full mt-4 hover:bg-red-600 focus:outline-none focus:ring-2 focus:ring-red-600"
           onClick={handleButtonClick}
         >
           {isSignInForm ? "Sign In" : "Sign Up"}
         </button>
-        <p className="p-2 m-4 text-center cursor-pointer text-blue-500" onClick={toggleSignInForm}>
+        
+        <p
+          className="p-2 m-4 text-center cursor-pointer text-blue-500 p-link"
+          onClick={toggleSignInForm}
+        >
           {isSignInForm
             ? "New to Netflix? Sign Up Now"
             : "Already registered? Sign In Now!"}
@@ -124,6 +139,7 @@ const Login = () => {
       </form>
     </div>
   );
+  
 };
 
 
